@@ -210,7 +210,7 @@
 </head>
 <body>
 <nav class="packnav">
-  <span class="pn-brand">⚡ SPRINTLAB <span style="font-size:10px;color:var(--gold);letter-spacing:.1em;">v6 · 17:30</span></span>
+  <span class="pn-brand">⚡ PROCO <span style="font-size:10px;color:var(--gold);letter-spacing:.1em;">v6 · 17:30</span></span>
   <span class="pn-links">
     <a href="index.html">Accueil</a>
     <a href="programme-200m.html" class="on">Athlète</a>
@@ -542,10 +542,10 @@ const PROGRAM = [
 const TAG_CLASS={vit:"t-vit",spe:"t-spe",mus:"t-mus",rec:"t-rec",race:"t-race"};
 const KEY_DONE="p200_done", KEY_FB="p200_feedback", KEY_REPS="p200_reps", KEY_OPEN="p200_open";
 /* ---- clés PARTAGÉES avec les pages coach ---- */
-const KEY_SESSIONS="sprintlab_sessions";   /* séances créées par le coach */
-const KEY_SHAREDFB="sprintlab_feedback";   /* feedbacks remontés vers le coach */
-const KEY_ME="sprintlab_me";               /* identité de l'athlète courant */
-const KEY_WELL="sprintlab_wellness";        /* check-in bien-être remonté au coach */
+const KEY_SESSIONS="PROCO_sessions";   /* séances créées par le coach */
+const KEY_SHAREDFB="PROCO_feedback";   /* feedbacks remontés vers le coach */
+const KEY_ME="PROCO_me";               /* identité de l'athlète courant */
+const KEY_WELL="PROCO_wellness";        /* check-in bien-être remonté au coach */
 /* appartenance aux groupes (proto) */
 const ROSTER=["Karim B.","Léa M.","Tom R.","Inès K.","Hugo D."];
 const GROUPS={"Groupe Sprint":["Karim B.","Tom R.","Hugo D.","Inès K."],"Groupe Relais":["Léa M.","Inès K."]};
@@ -934,7 +934,7 @@ function renderNotif(){
   const mine=mySessions();
   if(mine.length) html+=`<div class="notif"><span class="ic">📋</span><div>Tu as <b>${mine.length}</b> séance(s) assignée(s) par ton coach.</div></div>`;
   // unread coach comments
-  let comments=[];try{comments=JSON.parse(localStorage.getItem("sprintlab_comments")||"[]").filter(c=>c.athlete===me);}catch(e){}
+  let comments=[];try{comments=JSON.parse(localStorage.getItem("PROCO_comments")||"[]").filter(c=>c.athlete===me);}catch(e){}
   if(comments.length) html+=`<div class="notif coach"><span class="ic">💬</span><div>Message de ton coach : « ${(comments[0].text||"").slice(0,90)} »</div></div>`;
   // feedback today?
   const today=new Date().toISOString().slice(0,10);
@@ -994,7 +994,7 @@ function renderCoachSessions(){
       panel+='</ul>';
     }
     // coach comment for this athlete (shared)
-    let comments=[];try{comments=JSON.parse(localStorage.getItem("sprintlab_comments")||"[]").filter(c=>c.athlete===me);}catch(e){}
+    let comments=[];try{comments=JSON.parse(localStorage.getItem("PROCO_comments")||"[]").filter(c=>c.athlete===me);}catch(e){}
     if(comments.length){
       panel+='<div class="panel-title">💬 Mot du coach</div><div style="background:var(--lime);border-left:4px solid var(--ink);padding:8px 12px;font-size:14px;">'+comments[0].text.replace(/</g,"&lt;")+'</div>';
     }
