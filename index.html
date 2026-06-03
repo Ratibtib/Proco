@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPRINTLAB · Plateforme coach–athlète</title>
+<title>PROCO · Plateforme coach–athlète</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -72,7 +72,7 @@
 <body>
 <div class="proto-note">⚙ Prototype · maquette interactive · données locales au navigateur</div>
 <nav class="packnav">
-  <span class="pn-brand">⚡ SPRINTLAB <span style="font-size:10px;color:var(--gold);letter-spacing:.1em;">v6 · 17:30</span></span>
+  <span class="pn-brand">⚡ PROCO <span style="font-size:10px;color:var(--gold);letter-spacing:.1em;">v6 · 17:30</span></span>
   <span class="pn-links">
     <a href="index.html" class="on">Accueil</a>
     <a href="programme-200m.html">Athlète</a>
@@ -171,7 +171,7 @@
   </div>
 </main>
 
-<footer>SprintLab · prototype de maquette · v6</footer>
+<footer>PROCO · prototype de maquette · v6</footer>
 
 <script>
 /* Jeu de données de démonstration partagé avec les autres pages (mêmes clés). */
@@ -200,16 +200,16 @@ function loadDemo(){
   const comments=[
     {athlete:"Karim B.",text:"Super progression cette semaine ! Sur la prochaine, concentre-toi sur le relâchement des épaules dans les 50 derniers mètres.",date:"2026-06-02",id:7001},
   ];
-  localStorage.setItem("sprintlab_sessions",JSON.stringify(sessions));
-  localStorage.setItem("sprintlab_feedback",JSON.stringify(feedback));
-  localStorage.setItem("sprintlab_wellness",JSON.stringify(wellness));
-  localStorage.setItem("sprintlab_comments",JSON.stringify(comments));
-  localStorage.setItem("sprintlab_me","Karim B.");
+  localStorage.setItem("PROCO_sessions",JSON.stringify(sessions));
+  localStorage.setItem("PROCO_feedback",JSON.stringify(feedback));
+  localStorage.setItem("PROCO_wellness",JSON.stringify(wellness));
+  localStorage.setItem("PROCO_comments",JSON.stringify(comments));
+  localStorage.setItem("PROCO_me","Karim B.");
   document.getElementById("demoMsg").textContent="✓ Données chargées — ouvre n'importe quel espace pour voir l'outil rempli.";
 }
 function clearDemo(){
-  ["sprintlab_sessions","sprintlab_feedback","sprintlab_wellness","sprintlab_comments","sprintlab_me",
-   "p200_done","p200_feedback","p200_reps","p200_open","sprintlab_templates"]
+  ["PROCO_sessions","PROCO_feedback","PROCO_wellness","PROCO_comments","PROCO_me",
+   "p200_done","p200_feedback","p200_reps","p200_open","PROCO_templates"]
     .forEach(k=>localStorage.removeItem(k));
   // efface aussi les noms de vidéos éventuels
   Object.keys(localStorage).filter(k=>k.indexOf("vid_")===0).forEach(k=>localStorage.removeItem(k));
