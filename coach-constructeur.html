@@ -130,7 +130,7 @@
 </head>
 <body>
 <nav class="packnav">
-  <span class="pn-brand">⚡ SPRINTLAB <span style="font-size:10px;color:var(--gold);letter-spacing:.1em;">v6 · 17:30</span></span>
+  <span class="pn-brand">⚡ proco <span style="font-size:10px;color:var(--gold);letter-spacing:.1em;">v6 · 17:30</span></span>
   <span class="pn-links">
     <a href="index.html">Accueil</a>
     <a href="programme-200m.html">Athlète</a>
@@ -294,7 +294,7 @@ const EXERCISES=[
   {n:"Pogo jumps",def:"4 × 15"},
   {n:"Pallof press (anti-rotation)","def":"3 × 12 / côté"},
 ];
-const KEY="sprintlab_sessions"; /* clé PARTAGÉE : lue par la vue athlète */
+const KEY="proco_sessions"; /* clé PARTAGÉE : lue par la vue athlète */
 
 /* ---------- STATE ---------- */
 let state={ath:new Set(),cat:"vit",reps:[],mus:[]};
@@ -476,7 +476,7 @@ function renderSaved(){
 }
 
 /* ---------- TEMPLATES ---------- */
-const TPL_KEY="sprintlab_templates";
+const TPL_KEY="proco_templates";
 let templates=JSON.parse(localStorage.getItem(TPL_KEY)||"[]");
 document.getElementById("tplBtn").onclick=()=>{
   const cat=CATS.find(c=>c.id===state.cat);
