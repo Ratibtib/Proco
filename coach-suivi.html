@@ -121,7 +121,7 @@
 </head>
 <body>
 <nav class="packnav">
-  <span class="pn-brand">⚡ SPRINTLAB <span style="font-size:10px;color:var(--gold);letter-spacing:.1em;">v6 · 17:30</span></span>
+  <span class="pn-brand">⚡ proco <span style="font-size:10px;color:var(--gold);letter-spacing:.1em;">v6 · 17:30</span></span>
   <span class="pn-links">
     <a href="index.html">Accueil</a>
     <a href="programme-200m.html">Athlète</a>
@@ -290,7 +290,7 @@ function renderDetail(){
 }
 
 /* coach → athlete comments (shared key) */
-function getComments(nom){try{return JSON.parse(localStorage.getItem("sprintlab_comments")||"[]").filter(c=>c.athlete===nom);}catch(e){return[];}}
+function getComments(nom){try{return JSON.parse(localStorage.getItem("proco_comments")||"[]").filter(c=>c.athlete===nom);}catch(e){return[];}}
 function pastComments(nom){
   const cs=getComments(nom);
   if(!cs.length)return "";
@@ -299,9 +299,9 @@ function pastComments(nom){
 function sendComment(nom){
   const t=document.getElementById("commentInput").value.trim();
   if(!t)return;
-  let all=[];try{all=JSON.parse(localStorage.getItem("sprintlab_comments")||"[]");}catch(e){}
+  let all=[];try{all=JSON.parse(localStorage.getItem("proco_comments")||"[]");}catch(e){}
   all.unshift({athlete:nom,text:t,date:new Date().toISOString().slice(0,10),id:Date.now()});
-  localStorage.setItem("sprintlab_comments",JSON.stringify(all));
+  localStorage.setItem("proco_comments",JSON.stringify(all));
   renderDetail();
 }
 /* injury history (from pain flags in feedback) */
@@ -312,7 +312,7 @@ function injuryHistory(a){
     inj.map(f=>`<div class="inj">⚠ <b>${f.date}</b> — ${f.note}</div>`).join("");
 }
 /* wellness check-in (shared key from athlete) */
-function getWellness(nom){try{return JSON.parse(localStorage.getItem("sprintlab_wellness")||"[]").filter(w=>w.athlete===nom);}catch(e){return[];}}
+function getWellness(nom){try{return JSON.parse(localStorage.getItem("proco_wellness")||"[]").filter(w=>w.athlete===nom);}catch(e){return[];}}
 function wellnessBlock(a){
   const w=getWellness(a.nom)[0];
   if(!w)return "";
@@ -400,7 +400,7 @@ function renderLoad(){
 function renderCalendar(){
   const days=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
   let sessions=[];
-  try{sessions=JSON.parse(localStorage.getItem("sprintlab_sessions")||"[]");}catch(e){}
+  try{sessions=JSON.parse(localStorage.getItem("proco_sessions")||"[]");}catch(e){}
   const evClass={vit:"ev-vit",spe:"ev-spe",mus:"ev-mus",rec:"ev-rec",race:"ev-race"};
   document.getElementById("calWrap").innerHTML=`<div class="cal">`+days.map(d=>{
     const evs=sessions.filter(s=>s.day===d);
@@ -423,7 +423,7 @@ function exportCSV(){
   const csv=rows.map(r=>r.map(csvEscape).join(";")).join("\n");
   const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
   const url=URL.createObjectURL(blob);const a=document.createElement("a");
-  a.href=url;a.download="sprintlab_groupe_"+new Date().toISOString().slice(0,10)+".csv";a.click();
+  a.href=url;a.download="proco_groupe_"+new Date().toISOString().slice(0,10)+".csv";a.click();
   URL.revokeObjectURL(url);
 }
 function athletePDFHtml(a){
@@ -444,7 +444,7 @@ function openPrint(title,inner){
     .meta{color:#555;font-size:13px;margin-bottom:8px;}
     table{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:13px;}
     th,td{border:1px solid #bbb;padding:5px 8px;text-align:left;vertical-align:top;}th{background:#f0ece2;}
-  </style></head><body><h1>SprintLab — ${title}</h1>${inner}</body></html>`);
+  </style></head><body><h1>Proco — ${title}</h1>${inner}</body></html>`);
   win.document.close();setTimeout(()=>{win.focus();win.print();},350);
 }
 document.getElementById("csvBtn").onclick=exportCSV;
@@ -455,7 +455,7 @@ document.getElementById("pdfAllBtn").onclick=()=>openPrint("Bilan groupe",ATHLET
 /* En prod : remplacé par une requête Supabase. Ici : lecture de localStorage partagé. */
 function mergeSharedFeedback(){
   let shared=[];
-  try{shared=JSON.parse(localStorage.getItem("sprintlab_feedback")||"[]");}catch(e){}
+  try{shared=JSON.parse(localStorage.getItem("proco_feedback")||"[]");}catch(e){}
   shared.forEach(f=>{
     const a=ATHLETES.find(x=>x.nom===f.athlete);
     if(!a)return;
