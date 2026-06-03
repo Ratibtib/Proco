@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPRINTLAB · Plateforme coach–athlète</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0a0a0a;--paper:#f4f1ea;--track:#c8472a;--track-dark:#a3351c;--lane:#e8e3d8;--lime:#d4e84a;--gold:#e0a82e;--muted:#6b6457;--blue:#2c5f8a;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Barlow',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;
+    background-image:repeating-linear-gradient(0deg,transparent,transparent 38px,rgba(0,0,0,.025) 38px,rgba(0,0,0,.025) 39px);}
+  .packnav{background:#000;color:var(--paper);display:flex;justify-content:space-between;align-items:center;padding:10px 20px;flex-wrap:wrap;gap:8px;border-bottom:2px solid var(--track);}
+  .pn-brand{font-family:'Archivo Black',sans-serif;font-size:15px;letter-spacing:-.02em;color:var(--lime);}
+  .pn-links{display:flex;gap:4px;flex-wrap:wrap;}
+  .pn-links a{font-family:'Barlow Condensed',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:13px;color:#bdb6a6;text-decoration:none;padding:6px 13px;}
+  .pn-links a:hover{color:var(--paper);}.pn-links a.on{color:var(--ink);background:var(--lime);}
+  header{background:var(--ink);color:var(--paper);position:relative;overflow:hidden;}
+  .lanes{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(200,71,42,.18) 60px,rgba(200,71,42,.18) 62px);pointer-events:none;}
+  .header-inner{max-width:1100px;margin:0 auto;padding:64px 28px 56px;position:relative;z-index:2;}
+  .eyebrow{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.5em;font-size:13px;font-weight:600;color:var(--lime);margin-bottom:14px;}
+  h1{font-family:'Archivo Black',sans-serif;font-size:clamp(52px,12vw,128px);line-height:.82;letter-spacing:-.03em;text-transform:uppercase;}
+  h1 .ac{color:var(--track);}
+  .tagline{font-size:clamp(16px,2.4vw,21px);max-width:620px;margin-top:22px;color:#d8d2c4;line-height:1.5;}
+  .tagline b{color:var(--lime);font-weight:600;}
+  main{max-width:1100px;margin:0 auto;padding:54px 28px 80px;}
+  .sect{font-family:'Archivo Black',sans-serif;text-transform:uppercase;font-size:clamp(22px,4vw,34px);margin:0 0 22px;display:flex;align-items:baseline;gap:12px;}
+  .sect .num{color:var(--track);font-size:.7em;}
+  /* cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;}
+  .card{background:#fff;border:2px solid var(--ink);box-shadow:8px 8px 0 var(--ink);text-decoration:none;color:var(--ink);display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s;}
+  .card:hover{transform:translate(-2px,-2px);box-shadow:11px 11px 0 var(--track);}
+  .card-top{padding:22px 22px 16px;border-bottom:2px solid var(--ink);position:relative;overflow:hidden;}
+  .card-1 .card-top{background:var(--lime);}
+  .card-2 .card-top{background:var(--track);}
+  .card-3 .card-top{background:var(--ink);}
+  .card-role{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.2em;font-size:12px;font-weight:700;}
+  .card-1 .card-role{color:var(--ink);}
+  .card-2 .card-role{color:#fff;opacity:.85;}
+  .card-3 .card-role{color:var(--lime);}
+  .card-title{font-family:'Archivo Black',sans-serif;font-size:30px;text-transform:uppercase;line-height:.95;margin-top:6px;}
+  .card-2 .card-title{color:#fff;}.card-3 .card-title{color:var(--paper);}
+  .card-body{padding:18px 22px 22px;flex:1;display:flex;flex-direction:column;}
+  .card-body ul{list-style:none;margin-bottom:18px;}
+  .card-body li{font-size:14.5px;padding:5px 0;padding-left:20px;position:relative;color:var(--muted);}
+  .card-body li::before{content:"▸";position:absolute;left:0;color:var(--track);font-weight:700;}
+  .card-cta{margin-top:auto;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:14px;background:var(--ink);color:var(--paper);padding:12px;text-align:center;}
+  .card:hover .card-cta{background:var(--track);}
+  /* demo data box */
+  .demo-box{background:var(--ink);color:var(--paper);border:2px solid var(--ink);box-shadow:8px 8px 0 var(--gold);padding:28px;margin-top:54px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+  .demo-box h3{font-family:'Archivo Black',sans-serif;font-size:24px;text-transform:uppercase;margin-bottom:6px;}
+  .demo-box p{color:#bdb6a6;font-size:14.5px;max-width:560px;line-height:1.5;}
+  .demo-actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .dbtn{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:14px;padding:14px 22px;border:2px solid var(--lime);cursor:pointer;background:var(--lime);color:var(--ink);}
+  .dbtn:hover{transform:translateY(-2px);}
+  .dbtn.clear{background:transparent;color:var(--paper);border-color:#555;}
+  .dbtn.clear:hover{border-color:var(--track);color:var(--track);}
+  .demo-msg{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:13px;color:var(--lime);margin-top:10px;min-height:16px;width:100%;}
+  /* how / note */
+  .note{background:#fff;border-left:6px solid var(--blue);padding:18px 22px;margin-top:40px;font-size:14.5px;line-height:1.55;color:#3a3a3a;}
+  .note b{color:var(--ink);}
+  .steps{counter-reset:s;margin-top:14px;}
+  .steps li{list-style:none;padding:8px 0 8px 44px;position:relative;font-size:15px;border-bottom:1px solid var(--lane);}
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:30px;height:30px;background:var(--ink);color:var(--lime);font-family:'Archivo Black',sans-serif;font-size:14px;display:flex;align-items:center;justify-content:center;}
+  footer{text-align:center;padding:30px;color:var(--muted);font-size:12px;}
+  .proto-note{background:var(--blue);color:#fff;text-align:center;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:600;padding:7px;}
+</style>
+</head>
+<body>
+<div class="proto-note">⚙ Prototype · maquette interactive · données locales au navigateur</div>
+<nav class="packnav">
+  <span class="pn-brand">⚡ SPRINTLAB <span style="font-size:10px;color:var(--gold);letter-spacing:.1em;">v6 · 17:30</span></span>
+  <span class="pn-links">
+    <a href="index.html" class="on">Accueil</a>
+    <a href="programme-200m.html">Athlète</a>
+    <a href="coach-constructeur.html">Coach · Construire</a>
+    <a href="coach-suivi.html">Coach · Suivi</a>
+  </span>
+</nav>
+
+<header>
+  <div class="lanes"></div>
+  <div class="header-inner">
+    <div class="eyebrow">Plateforme coach – athlète · sprint</div>
+    <h1>SPRINT<span class="ac">LAB</span></h1>
+    <p class="tagline">L'interface entre l'entraîneur et ses athlètes : le coach <b>construit</b> des séances, l'athlète les <b>exécute</b> et renvoie ses chronos, le coach <b>suit</b> et ajuste. Une maquette de bout en bout.</p>
+  </div>
+</header>
+
+<main>
+  <div class="sect"><span class="num">▸</span> Les 3 espaces</div>
+  <div class="cards">
+
+    <a href="programme-200m.html" class="card card-1">
+      <div class="card-top">
+        <div class="card-role">Espace athlète</div>
+        <div class="card-title">Mon<br>programme</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Plan d'entraînement + séances du coach</li>
+          <li>Chronos par répétition & minuteur de récup</li>
+          <li>Démos animées des exercices de muscu</li>
+          <li>Check-in bien-être + feedback</li>
+          <li>Courbe de progression vers l'objectif</li>
+        </ul>
+        <div class="card-cta">Ouvrir l'espace athlète →</div>
+      </div>
+    </a>
+
+    <a href="coach-constructeur.html" class="card card-2">
+      <div class="card-top">
+        <div class="card-role">Espace coach</div>
+        <div class="card-title">Construire<br>une séance</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Sélection d'athlètes ou de groupes</li>
+          <li>Catégories, répétitions, générateur rapide</li>
+          <li>Bibliothèque d'exercices muscu</li>
+          <li>Aperçu live de la vue athlète</li>
+          <li>Gabarits réutilisables</li>
+        </ul>
+        <div class="card-cta">Ouvrir le constructeur →</div>
+      </div>
+    </a>
+
+    <a href="coach-suivi.html" class="card card-3">
+      <div class="card-top">
+        <div class="card-role">Espace coach</div>
+        <div class="card-title">Suivi &<br>feedback</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Tableau de bord du groupe + alertes</li>
+          <li>Charge d'entraînement & projection</li>
+          <li>Journal des gênes, check-in bien-être</li>
+          <li>Commentaire au sportif</li>
+          <li>Export CSV / PDF</li>
+        </ul>
+        <div class="card-cta">Ouvrir le suivi →</div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="demo-box">
+    <div>
+      <h3>Démarrer la démo</h3>
+      <p>Charge un jeu de données d'exemple (athlètes, séances assignées, chronos, feedbacks) pour voir l'outil rempli plutôt que vide. Tout reste dans ton navigateur — rien n'est envoyé en ligne.</p>
+      <div class="demo-msg" id="demoMsg"></div>
+    </div>
+    <div class="demo-actions">
+      <button class="dbtn" id="loadDemo">⚡ Charger les données de démo</button>
+      <button class="dbtn clear" id="clearDemo">Tout effacer</button>
+    </div>
+  </div>
+
+  <div class="sect" style="margin-top:54px;"><span class="num">▸</span> Tester le flux complet</div>
+  <ol class="steps">
+    <li>Dans <b>Coach · Construire</b>, choisis un athlète (ex. Karim B.), construis une séance, clique « Assigner ».</li>
+    <li>Va sur <b>Athlète</b> (sélecteur « Je suis » sur Karim B.) : la séance apparaît. Saisis des chronos et un feedback.</li>
+    <li>Reviens sur <b>Coach · Suivi</b> : le retour de Karim s'affiche dans sa fiche, sa courbe et la charge se mettent à jour.</li>
+  </ol>
+
+  <div class="note">
+    <b>Comment ça marche techniquement.</b> Trois pages HTML autonomes (aucun build, aucun serveur applicatif). Le partage de données entre elles passe par le stockage local du navigateur — il fonctionne tant que les pages sont servies depuis la <b>même origine</b> (c'est le cas sur GitHub Pages ou tout hébergeur statique). En ouvrant les fichiers en <b>file://</b> par double-clic, certains navigateurs cloisonnent ce stockage et le lien entre pages ne passe pas. En production, cette couche locale serait remplacée par une base type Supabase.
+  </div>
+</main>
+
+<footer>SprintLab · prototype de maquette · v6</footer>
+
+<script>
+/* Jeu de données de démonstration partagé avec les autres pages (mêmes clés). */
+function loadDemo(){
+  const sessions=[
+    {id:1001,title:"Mardi — Vitesse",cat:"vit",catLabel:"Vitesse",week:5,day:"Mardi",
+      detail:"5×60m départ debout à 95% · récup 5 min",
+      reps:["60m #1","60m #2","60m #3","60m #4","60m #5"],mus:[],ath:["Groupe Sprint"]},
+    {id:1002,title:"Mercredi — Renfo explosif",cat:"mus",catLabel:"Musculation",week:5,day:"Mercredi",
+      detail:"Force + pliométrie · 55 min",
+      reps:[],mus:[{n:"Squat barre",v:"4 × 6"},{n:"Squats sautés",v:"4 × 8"},{n:"Soulevé de terre jambes tendues",v:"3 × 10"},{n:"Gainage planche",v:"3 × 45 s"}],
+      ath:["Karim B.","Léa M."]},
+    {id:1003,title:"Vendredi — Spécifique 200m",cat:"spe",catLabel:"Spécifique",week:5,day:"Vendredi",
+      detail:"2×200m à 88% (≈23\") · récup 12 min",
+      reps:["200m #1","200m #2"],mus:[],ath:["Groupe Sprint"]},
+  ];
+  const feedback=[
+    {athlete:"Karim B.",date:"2026-06-02",type:"Spécifique 200m",rpe:8,time:"22.9",state:"Correct",note:"Belle 2e rép, j'ai tenu la vitesse jusqu'au bout.",id:9001},
+    {athlete:"Léa M.",date:"2026-06-01",type:"Vitesse",rpe:7,time:"",state:"Frais & en forme",note:"Départs nets, bonnes sensations.",id:9002},
+    {athlete:"Tom R.",date:"2026-06-02",type:"Vitesse",rpe:9,time:"",state:"Petite gêne / douleur",note:"Tiraillement ischio droit, j'ai arrêté la dernière rép.",id:9003},
+  ];
+  const wellness=[
+    {athlete:"Karim B.",date:"2026-06-03",sommeil:4,courb:2,frais:4,id:8001},
+    {athlete:"Tom R.",date:"2026-06-03",sommeil:2,courb:4,frais:2,id:8002},
+  ];
+  const comments=[
+    {athlete:"Karim B.",text:"Super progression cette semaine ! Sur la prochaine, concentre-toi sur le relâchement des épaules dans les 50 derniers mètres.",date:"2026-06-02",id:7001},
+  ];
+  localStorage.setItem("sprintlab_sessions",JSON.stringify(sessions));
+  localStorage.setItem("sprintlab_feedback",JSON.stringify(feedback));
+  localStorage.setItem("sprintlab_wellness",JSON.stringify(wellness));
+  localStorage.setItem("sprintlab_comments",JSON.stringify(comments));
+  localStorage.setItem("sprintlab_me","Karim B.");
+  document.getElementById("demoMsg").textContent="✓ Données chargées — ouvre n'importe quel espace pour voir l'outil rempli.";
+}
+function clearDemo(){
+  ["sprintlab_sessions","sprintlab_feedback","sprintlab_wellness","sprintlab_comments","sprintlab_me",
+   "p200_done","p200_feedback","p200_reps","p200_open","sprintlab_templates"]
+    .forEach(k=>localStorage.removeItem(k));
+  // efface aussi les noms de vidéos éventuels
+  Object.keys(localStorage).filter(k=>k.indexOf("vid_")===0).forEach(k=>localStorage.removeItem(k));
+  document.getElementById("demoMsg").textContent="✓ Tout effacé — les espaces repartent vides.";
+}
+document.getElementById("loadDemo").onclick=loadDemo;
+document.getElementById("clearDemo").onclick=clearDemo;
+</script>
+</body>
+</html>
